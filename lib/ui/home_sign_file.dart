@@ -1,4 +1,5 @@
-import 'package:cmc_sing/ui/main.dart';
+import 'package:cmc_sing/models/message.dart';
+import 'package:firebase_cloud_messaging/firebase_cloud_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -198,11 +199,20 @@ class HomeSignFile extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(),
-                    child: Text('Recent activity',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                            fontSize: 20)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Recent activity',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black87,
+                                fontSize: 20)),
+                        SizedBox(
+                          height: 300,
+                          child: ListNotification(),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -212,4 +222,67 @@ class HomeSignFile extends StatelessWidget {
       }),
     );
   }
+}
+
+class ListNotification extends StatefulWidget {
+  const ListNotification({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _ListNotificationState createState() => _ListNotificationState();
+}
+
+class _ListNotificationState extends State<ListNotification> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  final List<Message> messages = [];
+  @override
+  void initState() {
+    super.initState();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('onMessage: $message');
+        final notification = message['notification'];
+        setState(() {
+          messages.add(
+            Message(
+              title: notification['title'],
+              body: notification['body'],
+            ),
+          );
+        });
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('onLaunch: $message');
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('onResume: $message');
+        final notification = message['CMC'];
+        setState(() {
+          messages.add(
+            Message(
+              title: notification['title'],
+              body: notification['body'],
+            ),
+          );
+        });
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(sound: true, badge: true, alert: true),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      children: messages.map(buildMessage).toList(),
+    );
+  }
+
+  Widget buildMessage(Message message) => ListTile(
+        title: Text(message.title),
+        subtitle: Text(message.body),
+      );
 }

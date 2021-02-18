@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "950348719069",
+    "project_id": "cmc-sign-38030",
+    "storage_bucket": "cmc-sign-38030.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950348719069:android:1d37135c6bd6d1204bcc34",
+        "android_client_info": {
+          "package_name": "com.example.cmc_sing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950348719069-ea9i1lvnh8bjopg4ips3mq3onr6qoqnm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cmc_sing",
+            "certificate_hash": "13de96c963834a81a2dfaf408747532a17fd983d"
+          }
+        },
+        {
+          "client_id": "950348719069-8vpkf81jcta01tor3urhrp70lr2j3k2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGlPiouHtBjvNV8SUonDyf-hFPxoZJoZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950348719069-8vpkf81jcta01tor3urhrp70lr2j3k2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
