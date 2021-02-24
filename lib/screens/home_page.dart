@@ -1,15 +1,19 @@
+import 'package:cmc_sing/controllers/auth_controler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 
-/**
- * Class MyHomePage dùng để đăng nhập vào ứng dụng, cũng như activate account
+/*
+ * Class MyHomePage dùng để đăng nhập vào ứng dụng, cũng như register account
  */
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends GetWidget<AuthController> {
+  final TextEditingController emailControler = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final title;
   MyHomePage({Key key, this.title}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     //Get height display driver
@@ -60,7 +64,8 @@ class MyHomePage extends StatelessWidget {
                                       spreadRadius: 3.0)
                                 ],
                               ),
-                              child: TextField(
+                              child: TextFormField(
+                                controller: emailControler,
                                 decoration: InputDecoration(
                                     icon: const Padding(
                                       padding: const EdgeInsets.only(top: 0.0),
@@ -95,7 +100,8 @@ class MyHomePage extends StatelessWidget {
                                       spreadRadius: 3.0)
                                 ],
                               ),
-                              child: TextField(
+                              child: TextFormField(
+                                controller: passwordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
                                     icon: const Padding(
@@ -112,7 +118,7 @@ class MyHomePage extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.toNamed('ui/active_account');
+                                Get.toNamed('screen/active_account');
                               }, // Handle your callback
                               child: Text('Register an account ?'),
                             ),
@@ -135,7 +141,9 @@ class MyHomePage extends StatelessWidget {
                                               fontSize: 16.0,
                                               color: Colors.white)),
                                       onPressed: () {
-                                        Get.toNamed('ui/category_page');
+                                        controller.login(emailControler.text,
+                                            passwordController.text);
+                                        //Get.toNamed('ui/category_page');
                                       },
                                     ),
                                   ),

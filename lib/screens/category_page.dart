@@ -1,13 +1,17 @@
+import 'package:cmc_sing/controllers/auth_controler.dart';
 import 'package:cmc_sing/controllers/category_controllers.dart';
-import 'package:cmc_sing/ui/home_sign_file.dart';
-import 'package:cmc_sing/ui/setting_page.dart';
+import 'package:cmc_sing/controllers/drawer_controler.dart';
+import 'package:cmc_sing/screens/home_sign_file.dart';
+import 'package:cmc_sing/screens/setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CategoryPage extends StatelessWidget {
+class CategoryPage extends GetWidget<DrawerControler> {
   //controller manager
   final NavController navController = Get.put(NavController());
+  final DrawerControler drawerController = Get.put(DrawerControler());
+  final AuthController authController = Get.put(AuthController());
   final List<Widget> bodyContent = [
     HomeSignFile(),
     SettingAccount(),
@@ -15,6 +19,27 @@ class CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: controller.scaffoldKey,
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              child: Text('Account Infomation'),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text('Logn out'),
+              onTap: () {
+                authController.signOut();
+                drawerController.closeDrawer();
+              },
+            )
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Obx(
           () => Center(

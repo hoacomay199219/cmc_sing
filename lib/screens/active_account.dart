@@ -1,10 +1,14 @@
+import 'package:cmc_sing/controllers/auth_controler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-/**
+/*
  * Class ActiveAccount để đăng ký tài khoản, thiết bị với server
  */
-class ActiveAccount extends StatelessWidget {
+class ActiveAccount extends GetWidget<AuthController> {
+  final TextEditingController emailControler = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +31,7 @@ class ActiveAccount extends StatelessWidget {
                   SizedBox(
                     height: 40.0,
                   ),
-                  Text('Account'),
+                  Text('User Name'),
                   SizedBox(
                     height: 5.0,
                   ),
@@ -50,13 +54,14 @@ class ActiveAccount extends StatelessWidget {
                       ],
                     ),
                     child: TextField(
+                      controller: emailControler,
                       decoration: InputDecoration(
                         icon: const Padding(
                           padding: const EdgeInsets.only(top: 0.0),
                           child: const Icon(Icons.account_box),
                         ),
                         border: InputBorder.none,
-                        hintText: 'cist@cmc.com',
+                        hintText: 'email',
                       ),
                     ),
                   ),
@@ -86,6 +91,7 @@ class ActiveAccount extends StatelessWidget {
                       ],
                     ),
                     child: TextField(
+                      controller: passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         icon: const Padding(
@@ -93,7 +99,7 @@ class ActiveAccount extends StatelessWidget {
                           child: const Icon(Icons.lock),
                         ),
                         border: InputBorder.none,
-                        hintText: '*********',
+                        hintText: 'password',
                       ),
                     ),
                   ),
@@ -114,7 +120,10 @@ class ActiveAccount extends StatelessWidget {
                             child: new Text('Register',
                                 style: new TextStyle(
                                     fontSize: 16.0, color: Colors.white)),
-                            onPressed: () {},
+                            onPressed: () {
+                              controller.createUser(
+                                  emailControler.text, passwordController.text);
+                            },
                           ),
                         ),
                       ),
