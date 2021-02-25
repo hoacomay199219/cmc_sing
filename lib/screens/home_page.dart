@@ -118,7 +118,7 @@ class MyHomePage extends GetWidget<AuthController> {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.toNamed('screen/active_account');
+                                Get.toNamed('ui/active_account');
                               }, // Handle your callback
                               child: Text('Register an account ?'),
                             ),

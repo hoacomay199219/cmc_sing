@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,13 +12,15 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _auth.authStateChanges().listen((_firebaseUser) {
-      this._firebaseUser.value = _firebaseUser;
-      print(_firebaseUser.email);
-      if (_firebaseUser == null) {
+    _auth.authStateChanges().listen((User firebaseUser) {
+      firebaseUser = this._firebaseUser.value;
+      //print(firebaseUser.email);
+      if (firebaseUser == null) {
         print('User is currently signed out!');
+        //Get.snackbar('Sign out', 'Account logged out');
       } else {
         print('User is signed in!');
+        //Get.snackbar('Sign in', 'Account logged in');
       }
     });
   }
